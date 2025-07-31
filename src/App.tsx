@@ -71,6 +71,14 @@ const App: React.FC = () => {
         setShapes(importedState.shapes);
     }, []);
 
+    const handleLoad = useCallback((loadedState: DrawingState) => {
+        setShapes(loadedState.shapes);
+    }, []);
+
+    const handleShapeLoad = useCallback((shapes: Shape[]) => {
+        setShapes(shapes);
+    }, []);
+
     const shapeCounts: ShapeCount = shapes.reduce(
         (counts, shape) => {
             if (counts[shape.type] !== undefined) {
@@ -96,6 +104,8 @@ const App: React.FC = () => {
                 onImport={handleImport}
                 darkMode={darkMode}
                 onToggleDarkMode={handleToggleDarkMode}
+                onLoad={handleLoad}
+                handleShapeLoad={handleShapeLoad}
             />
             <MainContent className={darkMode ? 'dark' : ''}>
                 <ShapeSelector onShapeSelect={handleShapeAdd}
